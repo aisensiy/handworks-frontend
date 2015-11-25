@@ -1,5 +1,15 @@
+## How to run
+
+```
+   npm install && npm start
+```
+
+then open [http://localhost:8080/webpack-dev-server/index.html](http://localhost:8080/webpack-dev-server/index.html)
+
+## Mockups
 [mockups](https://moqups.com/aisensiy/jFZxzTah/p:a0141c679)
 
+## Components
 1. navi bar
 2. login view
 3. breadcrumb(low priority)
