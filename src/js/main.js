@@ -11,6 +11,7 @@ import NewSolution from './components/new_solution';
 import NewStack from './components/new_stack';
 import NewExamProfile from './components/new_exam_profile';
 import ProjectList from './components/project_list';
+import Project from './components/project';
 let store = createStore(todoApp);
 
 require("bootstrap-webpack");
@@ -32,7 +33,7 @@ ReactDOM.render(
         name: 'solution two',
         description: 'solution description 2'
       }
-    ]} goToCreateNewSolution={() => console.log("go to new solution view")} />,
+    ]} goToCreateNewSolution={() => console.log("go to new solution view")}/>,
     document.getElementById("main")
 );
 
@@ -46,7 +47,8 @@ ReactDOM.render(
           { name: "stack two", backing_services: ["rails", "mongodb"]}
         ]
       }
-    } tabState="STACKS" onTabChange={(state) => console.log("click new tab " + state)} goToCreateNewStack={() => console.log("go to new stack view")} />,
+    } tabState="STACKS" onTabChange={(state) => console.log("click new tab " + state)}
+              goToCreateNewStack={() => console.log("go to new stack view")}/>,
     document.getElementById("main")
 );
 
@@ -60,7 +62,7 @@ ReactDOM.render(
           { name: "exam two", raml: "http://www.example.com", archetype: "http://www.example.com"}
         ]
       }
-    } goToCreateExamProfile={() => console.log("go to new exam profile view")} />,
+    } goToCreateExamProfile={() => console.log("go to new exam profile view")}/>,
     document.getElementById("main")
 );
 
@@ -89,6 +91,42 @@ ReactDOM.render(
         name: 'solution two',
         description: 'solution description 2'
       }
-    ]} goToCreateNewProject={() => console.log("go to new project view")} />,
+    ]} goToCreateNewProject={() => console.log("go to new project view")}/>,
+    document.getElementById("main")
+);
+
+var project = {
+  id: "1",
+  uri: "/projects/1",
+  name: "vodafone",
+  description: "asdf",
+  new_solution: true,
+  solutions: [
+    {
+      id: "1",
+      uri: "/projects/1/solutions/1",
+      profile_uri: "/solutions/1",
+      name: "backend",
+      stack: {
+        profile_uri: "/solutions/1/stacks/1",
+        name: "springboot"
+      },
+      mode: "EDIT"
+    },
+    {
+      id: "2",
+      uri: "/projects/1/solutions/2",
+      profile_uri: "/solutions/2",
+      name: "mobile",
+      stack: {
+        profile_uri: "/solutions/2/stacks/1",
+        name: "android"
+      }
+    }
+  ]
+};
+
+ReactDOM.render(
+    <Project {...project} />,
     document.getElementById("main")
 );

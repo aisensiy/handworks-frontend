@@ -1,0 +1,116 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const Project = React.createClass({
+  render() {
+    return (
+        <div>
+          <h2>{this.props.name}</h2>
+          <h3>Description</h3>
+          <p>
+            {this.props.description}
+          </p>
+          <ProjectSolutionList solutions={this.props.solutions} new_solution={this.props.new_solution}/>
+        </div>
+    );
+  }
+});
+
+var ProjectSolution = React.createClass({
+  renderEditMode() {
+    return (
+        <tr>
+          <td>{this.props.name}</td>
+          <td>
+            <select type="text" className="form-control" ref="stack">
+              <option value="">Select Stack</option>
+            </select>
+          </td>
+          <td>
+            <button className="btn btn-primary">Save</button>
+            { ' ' }
+            <button className="btn btn-primary">Cancel</button>
+          </td>
+        </tr>
+    );
+  },
+  renderReadMode() {
+    return (
+        <tr>
+          <td>{this.props.name}</td>
+          <td>{this.props.stack.name}</td>
+          <td>
+            <button className="btn btn-primary">Edit</button>
+            { ' ' }
+            <button className="btn btn-primary">Remove</button>
+            { ' ' }
+            <button className="btn btn-primary">Apply for Exam</button>
+          </td>
+        </tr>
+    );
+  },
+  render() {
+    return (
+        this.props.mode == "EDIT" ? this.renderEditMode() : this.renderReadMode()
+    );
+  }
+});
+
+var ProjectSolutionList = React.createClass({
+  render() {
+    var newSolution = this.props.new_solution ? (<NewProjectSolution />) : '';
+    return (
+        <div>
+          <h3>Solutions</h3>
+          <table className="table">
+            <thead>
+            <tr>
+              <th>Solution</th>
+              <th>Stack</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {this.props.solutions.map((elem, index) => {
+              return (<ProjectSolution {...elem} key={index}/>);
+            })}
+            {newSolution}
+            </tbody>
+          </table>
+          <button className="btn btn-primary">Add Solution</button>
+        </div>
+    );
+  }
+});
+
+var NewProjectSolution = React.createClass({
+  render() {
+    var self = this;
+    return (
+        <tr>
+          <td>
+            <div className="form-group">
+              <select type="text" className="form-control" ref="solution">
+                <option value="">Select Solution</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <div className="form-group">
+              <select type="text" className="form-control" ref="stack">
+                <option value="">Select Stack</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <button type="submit" className="btn btn-default">Save</button>
+            { ' ' }
+            <button className="btn btn-default">Cancel</button>
+          </td>
+        </tr>
+    );
+  }
+});
+
+
+export default Project;
