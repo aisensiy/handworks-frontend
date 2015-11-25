@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
 const Project = React.createClass({
@@ -15,6 +15,17 @@ const Project = React.createClass({
     );
   }
 });
+
+Project.propTypes = {
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  solutions: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    stack: PropTypes.shape({
+      name: React.PropTypes.string.isRequired
+    })
+  }))
+};
 
 var ProjectSolution = React.createClass({
   renderEditMode() {
@@ -77,7 +88,7 @@ var ProjectSolutionList = React.createClass({
             {newSolution}
             </tbody>
           </table>
-          <button className="btn btn-primary">Add Solution</button>
+          <button className="btn btn-primary" disabled={this.props.new_solution}>Add Solution</button>
         </div>
     );
   }
@@ -85,7 +96,6 @@ var ProjectSolutionList = React.createClass({
 
 var NewProjectSolution = React.createClass({
   render() {
-    var self = this;
     return (
         <tr>
           <td>
