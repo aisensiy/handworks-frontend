@@ -9,6 +9,7 @@ import Solution from './components/solution';
 import Stack from './components/stack';
 import NewSolution from './components/new_solution';
 import NewStack from './components/new_stack';
+import NewExamProfile from './components/new_exam_profile';
 let store = createStore(todoApp);
 
 require("bootstrap-webpack");
@@ -69,5 +70,10 @@ ReactDOM.render(
 
 ReactDOM.render(
     <NewStack />,
+    document.getElementById("main")
+);
+
+ReactDOM.render(
+    <NewExamProfile />,
     document.getElementById("main")
 );
