@@ -26,6 +26,7 @@
     "react-router": "^1.0.0",
     "redux": "^3.0.4",
     "redux-router": "^1.0.0-beta4",
+    "superagent": "^1.4.0",
     "url-loader": "^0.5.7"
   },
   "devDependencies": {
