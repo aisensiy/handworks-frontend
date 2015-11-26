@@ -1,3 +1,4 @@
+import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
 import {  combineReducers, applyMiddleware, compose, createStore  } from 'redux'
@@ -11,28 +12,35 @@ import Stack from './components/stack';
 import NewSolution from './components/new_solution';
 import NewStack from './components/new_stack';
 import NewExamProfile from './components/new_exam_profile';
-import ProjectList from './components/project_list';
+import ProjectList from './components/ProjectList';
 import Project from './components/project';
 import NewProject from './components/new_project';
 
 
-export default routes = (
+var routes = (
     <Router>
       <Route path="/" component={App}>
-        <IndexRoute component={ProjectList}/>
-        <Route path="projects" component={ProjectList}>
-          <Route path="new" component={NewProject}/>
-          <Route path=":project_id" component={Project}/>
-        </Route>
-        <Route path="solutions" component={SolutionList}>
-          <Route path="new" component={NewSolution}/>
-          <Route path=":solution_id" component={Solution}>
-            <Route path="stacks/:stack_id" component={Stack}>
-              <Route path="exam_profiles/new" component={NewExamProfile}/>
-            </Route>
-            <Route path="stacks/new" component={NewStack}/>
-          </Route>
-        </Route>
+        <IndexRoute component={SolutionList}/>
+        <Route path="solutions" component={SolutionList}/>
+        <Route path="solutions/new" component={NewSolution}/>
+        <Route path="projects" component={ProjectList}/>
+        <Route path="projects/new" component={NewProject}/>
       </Route>
     </Router>
 );
+
+//<Route path="projects" component={ProjectList}>
+//  <Route path="new" component={NewProject}/>
+//  <Route path=":project_id" component={Project}/>
+//</Route>
+//<Route path="solutions" component={SolutionList}>
+//    <Route path="new" component={NewSolution}/>
+//    <Route path=":solution_id" component={Solution}>
+//    <Route path="stacks/:stack_id" component={Stack}>
+//    <Route path="exam_profiles/new" component={NewExamProfile}/>
+//    </Route>
+//    <Route path="stacks/new" component={NewStack}/>
+//    </Route>
+//    </Route>
+
+export default routes;

@@ -13,18 +13,21 @@ import Stack from './components/stack';
 import NewSolution from './components/new_solution';
 import NewStack from './components/new_stack';
 import NewExamProfile from './components/new_exam_profile';
-import ProjectList from './components/project_list';
+import ProjectList from './components/ProjectList';
 import Project from './components/project';
 import NewProject from './components/new_project';
 import configureStore from './stores/configureStore.dev';
+import routes from './routers'
 
 require("bootstrap-webpack");
 
 var store = configureStore();
-
+console.log(store.getState());
 ReactDOM.render(
     <Provider store={store}>
-      <NewSolution />
+      <ReduxRouter>
+        {routes}
+      </ReduxRouter>
     </Provider>,
     document.getElementById("main")
 );

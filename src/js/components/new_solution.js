@@ -11,8 +11,7 @@ const NewSolution = React.createClass({
       "solution[name]": this.refs.name.value,
       "solution[description]": this.refs.description.value
     };
-    console.log(newSolution);
-    this.props.createSolution(newSolution);
+    this.props.dispatch(NewSolutionAction(newSolution));
   },
 
   render() {
@@ -37,15 +36,15 @@ const NewSolution = React.createClass({
   }
 });
 
-NewSolution.propTypes = {
-  createSolution: React.PropTypes.func.isRequired
-};
-
 function mapStateToProps(state) {
-  return state['new_solution'];
+  return {
+    'new_solution': state['new_solution']
+  };
 }
 
-export default connect(mapStateToProps, {
-  pushState,
-  createSolution: NewSolutionAction
+export default connect(mapStateToProps, (dispatch) => {
+  return {
+    pushState,
+    dispatch
+  }
 })(NewSolution);

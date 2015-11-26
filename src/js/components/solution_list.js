@@ -1,6 +1,18 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { pushState } from 'redux-router';
+import { Link } from 'react-router';
+import { SolutionListAction } from '../actions/actions';
 
 const SolutionList = React.createClass({
+  componentWillMount() {
+    console.log('what?');
+    this.props.dispatch(SolutionListAction());
+  },
+  componentDidUpdate() {
+    console.log('what?');
+    //this.props.dispatch(SolutionListAction());
+  },
   render() {
     return (
         <div>
@@ -19,15 +31,14 @@ const SolutionList = React.createClass({
           </tbody>
 
         </table>
-          <button className="btn btn-primary" onClick={(e) => this.props.goToCreateNewSolution()}>Create New</button>
+          <Link to="/solutions/new" href="javascript:void(0)" className="btn btn-primary">Create New</Link>
         </div>
     );
   }
 });
 
 SolutionList.propTypes = {
-  solutions: PropTypes.array.isRequired,
-  goToCreateNewSolution: PropTypes.func.isRequired
+  solutions: PropTypes.array.isRequired
 };
 
 var Solution = React.createClass({
@@ -41,4 +52,18 @@ var Solution = React.createClass({
   }
 });
 
-export default SolutionList;
+var stateToProps = (state) => {
+  return {
+    q: state.router.location.query.q,
+    solutions: state.solution_list.solutions
+  }
+};
+
+var dispatchToProps = (dispatch) => {
+  return {
+    dispatch: dispatch,
+    pushState: pushState
+  }
+}
+
+export default connect(stateToProps, dispatchToProps)(SolutionList);

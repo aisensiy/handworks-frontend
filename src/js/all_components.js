@@ -10,7 +10,7 @@ import Stack from './components/stack';
 import NewSolution from './components/new_solution';
 import NewStack from './components/new_stack';
 import NewExamProfile from './components/new_exam_profile';
-import ProjectList from './components/project_list';
+import ProjectList from './components/ProjectList';
 import Project from './components/project';
 import Login from './components/login';
 

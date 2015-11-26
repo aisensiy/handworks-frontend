@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '../actions/actions'
-import { AddTodo, TodoList, Footer } from './todo-app';
 import { Link } from 'react-router';
+import { pushState } from 'redux-router';
 
 const App = React.createClass({
   render() {
@@ -39,11 +38,4 @@ const App = React.createClass({
   }
 });
 
-var mapState = {
-  "solutions": []
-};
-
-var mapDispatch = {};
-
-// Wrap the component to inject dispatch and state into it
-export default App
+export default App;
