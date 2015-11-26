@@ -2,63 +2,48 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '../actions/actions'
 import { AddTodo, TodoList, Footer } from './todo-app';
+import { Link } from 'react-router';
 
-class App extends Component {
+const App = React.createClass({
   render() {
-    // Injected by connect() call:
-    const { dispatch, visibleTodos, visibilityFilter } = this.props
     return (
         <div>
-          <AddTodo
-              onAddClick={text =>
-            dispatch(addTodo(text))
-          } />
-          <TodoList
-              todos={visibleTodos}
-              onTodoClick={index =>
-            dispatch(completeTodo(index))
-          } />
-          <Footer
-              filterType={visibilityFilter}
-              onFilterChange={nextFilter =>
-            dispatch(setVisibilityFilter(nextFilter))
-          } />
+          <nav className="navbar navbar-default">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span className="sr-only">Toggle navigation</span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+                </button>
+                <a className="navbar-brand" href="#">Brand</a>
+              </div>
+
+              <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul className="nav navbar-nav navbar-right">
+                  <li><Link to="/solutions" href="javascript: void(0)">Solutions</Link></li>
+                  <li><Link to="/projects" href="javascript: void(0)">Projects</Link></li>
+                  <li><a href="#">Xu Shanchuan</a></li>
+                  <li><a href="#">Logout</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <div className="container">
+            {this.props.children}
+          </div>
         </div>
-    )
+    );
   }
-}
+});
 
-App.propTypes = {
-  visibleTodos: PropTypes.arrayOf(PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired
-  })),
-  visibilityFilter: PropTypes.oneOf([
-    'SHOW_ALL',
-    'SHOW_COMPLETED',
-    'SHOW_ACTIVE'
-  ]).isRequired
-}
+var mapState = {
+  "solutions": []
+};
 
-function selectTodos(todos, filter) {
-  switch (filter) {
-    case VisibilityFilters.SHOW_ALL:
-      return todos
-    case VisibilityFilters.SHOW_COMPLETED:
-      return todos.filter(todo => todo.completed)
-    case VisibilityFilters.SHOW_ACTIVE:
-      return todos.filter(todo => !todo.completed)
-  }
-}
-
-// Which props do we want to inject, given the global state?
-// Note: use https://github.com/faassen/reselect for better performance.
-function select(state) {
-  return {
-    visibleTodos: selectTodos(state.todos, state.visibilityFilter),
-    visibilityFilter: state.visibilityFilter
-  }
-}
+var mapDispatch = {};
 
 // Wrap the component to inject dispatch and state into it
-export default connect(select)(App)
+export default App
