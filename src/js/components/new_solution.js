@@ -1,19 +1,18 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { pushState } from 'redux-router';
+import { NewSolutionAction } from '../actions/actions';
 
 const NewSolution = React.createClass({
-  getInitialState() {
-    return {
-      name: '',
-      description: ''
-    };
-  },
 
   onSubmit(e) {
     e.preventDefault();
-    console.log({
-      name: this.refs.name.value,
-      description: this.refs.description.value
-    });
+    var newSolution = {
+      "solution[name]": this.refs.name.value,
+      "solution[description]": this.refs.description.value
+    };
+    console.log(newSolution);
+    this.props.createSolution(newSolution);
   },
 
   render() {
@@ -38,4 +37,15 @@ const NewSolution = React.createClass({
   }
 });
 
-export default NewSolution;
+NewSolution.propTypes = {
+  createSolution: React.PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+  return state['new_solution'];
+}
+
+export default connect(mapStateToProps, {
+  pushState,
+  createSolution: NewSolutionAction
+})(NewSolution);

@@ -12,6 +12,7 @@ import NewStack from './components/new_stack';
 import NewExamProfile from './components/new_exam_profile';
 import ProjectList from './components/project_list';
 import Project from './components/project';
+import Login from './components/login';
 
 require("bootstrap-webpack");
 
@@ -23,7 +24,8 @@ var components = [
     'new_stack',
     'new_exam_profile',
     'project_list',
-    'project'
+    'project',
+    'login'
 ];
 
 components.forEach((elem, index) => {

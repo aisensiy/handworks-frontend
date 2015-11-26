@@ -1,5 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute } from 'react-router';
 import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
 import {  combineReducers, applyMiddleware, compose, createStore  } from 'redux'
@@ -16,16 +14,25 @@ import NewExamProfile from './components/new_exam_profile';
 import ProjectList from './components/project_list';
 import Project from './components/project';
 import NewProject from './components/new_project';
-import configureStore from './stores/configureStore.dev';
 
-require("bootstrap-webpack");
 
-var store = configureStore();
-
-ReactDOM.render(
-    <Provider store={store}>
-      <NewSolution />
-    </Provider>,
-    document.getElementById("main")
+export default routes = (
+    <Router>
+      <Route path="/" component={App}>
+        <IndexRoute component={ProjectList}/>
+        <Route path="projects" component={ProjectList}>
+          <Route path="new" component={NewProject}/>
+          <Route path=":project_id" component={Project}/>
+        </Route>
+        <Route path="solutions" component={SolutionList}>
+          <Route path="new" component={NewSolution}/>
+          <Route path=":solution_id" component={Solution}>
+            <Route path="stacks/:stack_id" component={Stack}>
+              <Route path="exam_profiles/new" component={NewExamProfile}/>
+            </Route>
+            <Route path="stacks/new" component={NewStack}/>
+          </Route>
+        </Route>
+      </Route>
+    </Router>
 );
-
