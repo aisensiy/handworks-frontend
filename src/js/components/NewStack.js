@@ -6,21 +6,17 @@ import { NewStackAction } from '../actions/actions';
 const NewStack = React.createClass({
   onSubmit(e) {
     e.preventDefault();
-    console.log({
-      name: this.refs.name.value,
-      backing_services: this.refs.backing_services.value.trim().split(",").map((e) => e.trim())
-    });
     var newStack = {
       "stack[name]": this.refs.name.value,
       "stack[backing_services][]": this.refs.backing_services.value.trim().split(",").map((e) => e.trim()).join(",")
-    }
+    };
     this.props.dispatch(NewStackAction(newStack, `${this.props.solution_id}/stacks`))
   },
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.new_stack.location != undefined){
-      var location = mapStateToProps(nextProps);
-      var relativeURI = location.new_stack.location.replace(/.+:\/\/[^\/]+(.+)$/, "$1");
+    var props = mapStateToProps(nextProps);
+    if(props.new_stack.location){
+      var relativeURI = props.new_stack.location.replace(/.+:\/\/[^\/]+(.+)$/, "$1");
       this.props.dispatch(this.props.pushState(null, relativeURI));
     }
   },
@@ -58,7 +54,7 @@ const NewStack = React.createClass({
 function mapStateToProps(state) {
   return {
     new_stack: state['new_stack'],
-    solution_id: state.router.params.id
+    solution_id: state.router && state.router.params.id || state.params.id
   };
 }
 

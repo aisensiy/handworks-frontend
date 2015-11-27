@@ -5,8 +5,6 @@ export default function newSolution(state={}, action) {
         is_loading: true
       };
     case "NEW_SOLUTION_SUCCESS":
-      console.log("action here")
-      console.log(action.location)
       return {
         is_success: true,
         location: action.location

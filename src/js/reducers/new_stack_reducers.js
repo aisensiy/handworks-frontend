@@ -1,5 +1,4 @@
 export default function new_stack(state = {}, action) {
-  console.log(action);
   var newState = Object.assign({}, state);
 
   switch (action.type) {
@@ -9,7 +8,6 @@ export default function new_stack(state = {}, action) {
       });
     case "NEW_STACK_SUCCESS":
       return Object.assign(newState, {
-        solution: action.payload,
         request_status: "SUCCESS",
         location: action.location
       });
