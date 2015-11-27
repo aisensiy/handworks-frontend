@@ -15,6 +15,7 @@ import NewExamProfile from './components/new_exam_profile';
 import ProjectList from './components/ProjectList';
 import Project from './components/project';
 import NewProject from './components/new_project';
+import Login from './components/login';
 
 
 var routes = (
@@ -22,6 +23,7 @@ var routes = (
       <Route path="/" component={App}>
         <IndexRoute component={SolutionList}/>
         <Route path="solutions" component={SolutionList}/>
+        <Route path="login" component={Login}/>
         <Route path="solutions/new" component={NewSolution}/>
         <Route path="solutions/:id" component={Solution}/>
         <Route path="solutions/:id/stacks/new" component={NewStack}/>

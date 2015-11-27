@@ -27,6 +27,7 @@ const App = React.createClass({
                   <li><Link to="/exam_requests" href="javascript: void(0)">Exam Requests</Link></li>
                   <li><a href="#">Xu Shanchuan</a></li>
                   <li><a href="#">Logout</a></li>
+                  <li><Link to="/login" href="javascript: void(0)">Login</Link></li>
                 </ul>
               </div>
             </div>

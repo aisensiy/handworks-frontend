@@ -1,13 +1,23 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { pushState } from 'redux-router';
+import { LoginAction } from '../actions/actions';
 
 const Login = React.createClass({
   onClickSubmit(e) {
     e.preventDefault();
-    this.props.onLogin({
+    this.props.dispatch(LoginAction({
       name: this.refs.name.value,
       password: this.refs.password.value
-    });
+    }));
   },
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.current_user != undefined){
+      this.props.dispatch(this.props.pushState(null, '/'));
+    }
+  },
+
   render() {
     return (
         <form onSubmit={this.onClickSubmit}>
@@ -25,8 +35,16 @@ const Login = React.createClass({
   }
 });
 
-Login.propTypes = {
-  onLogin: React.PropTypes.func.isRequired
-};
+function mapStateToProps(state) {
+  return {
+    'current_user': state['current_user']
+  };
+}
 
-export default Login;
+export default connect(mapStateToProps, (dispatch) => {
+  return {
+    pushState,
+    dispatch
+  }
+})(Login);
+
