@@ -24,6 +24,7 @@ const App = React.createClass({
                 <ul className="nav navbar-nav navbar-right">
                   <li><Link to="/solutions" href="javascript: void(0)">Solutions</Link></li>
                   <li><Link to="/projects" href="javascript: void(0)">Projects</Link></li>
+                  <li><Link to="/exam_requests" href="javascript: void(0)">Exam Requests</Link></li>
                   <li><a href="#">Xu Shanchuan</a></li>
                   <li><a href="#">Logout</a></li>
                 </ul>

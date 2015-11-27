@@ -1,7 +1,18 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { pushState } from 'redux-router';
+import { ProjectAction } from '../actions/actions';
+
 
 const Project = React.createClass({
+  componentWillMount() {
+    if (this.props.param_id) {
+      this.props.dispatch(ProjectAction(this.props.param_id));
+    }
+  },
+
   render() {
     return (
         <div>
@@ -122,5 +133,17 @@ var NewProjectSolution = React.createClass({
   }
 });
 
+var stateToProps = (state) => {
+  return {
+    solutions: state.project.solutions,
+    param_id: state.router.params.id
+  }
+};
 
-export default Project;
+var dispatchToProps = (dispatch) => {
+  return {
+    dispatch: dispatch,
+    pushState: pushState
+  }
+};
+export default connect(stateToProps, dispatchToProps)(Project);

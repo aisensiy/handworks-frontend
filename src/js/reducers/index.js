@@ -3,6 +3,7 @@ import { reduxReactRouter, routerStateReducer } from 'redux-router';
 import newSolution from './new_solution_reducers';
 import solutionList from './solution_list_reducers';
 import projectList from './project_list_reducers';
+import project from './project_reducers';
 import solution from './solution_reducers';
 import new_stack from './new_stack_reducers';
 import stack from './stack_reducers';
@@ -13,6 +14,7 @@ var rootReducer = combineReducers({
   new_solution: newSolution,
   solution_list: solutionList,
   project_list: projectList,
+  project: project,
   solution: solution,
   new_stack: new_stack,
   stack: stack,

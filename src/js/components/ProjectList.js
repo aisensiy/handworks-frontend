@@ -16,6 +16,9 @@ const ProjectList = React.createClass({
   render() {
     return (
         <div>
+          <div className="page-header">
+            <h1>All Projects</h1>
+          </div>
           <table className="table">
             <thead>
             <tr>
@@ -45,7 +48,7 @@ var Project = React.createClass({
   render() {
     return (
         <tr>
-          <td>{this.props.name}</td>
+          <td><Link to={`/projects/${this.props.id}`}>{this.props.name}</Link></td>
           <td>{this.props.description}</td>
         </tr>
     );

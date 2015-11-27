@@ -29,6 +29,7 @@ var routes = (
         <Route path="solutions/:solution_id/stacks/:stack_id/exam_profiles/new" component={NewExamProfile}/>
         <Route path="projects" component={ProjectList}/>
         <Route path="projects/new" component={NewProject}/>
+        <Route path="projects/:id" component={Project}/>
       </Route>
     </Router>
 );
