@@ -1,4 +1,7 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { pushState } from 'redux-router';
+import { NewStackAction } from '../actions/actions';
 
 const NewStack = React.createClass({
   getInitialState() {
@@ -14,6 +17,11 @@ const NewStack = React.createClass({
       name: this.refs.name.value,
       backing_services: this.refs.backing_services.value.trim().split(",").map((e) => e.trim())
     });
+    var newStack = {
+      "stack[name]": this.refs.name.value,
+      "stack[backing_services][]": this.refs.backing_services.value.trim().split(",").map((e) => e.trim()).join(",")
+    }
+    this.props.dispatch(NewStackAction(newStack, `${this.props.solution_id}/stacks`))
   },
 
   render() {
@@ -46,4 +54,17 @@ const NewStack = React.createClass({
   }
 });
 
-export default NewStack;
+function mapStateToProps(state) {
+  return {
+    new_stack: state['new_stack'],
+    solution_id: state.router.params.id
+  };
+}
+
+export default connect(mapStateToProps, (dispatch) => {
+  return {
+    pushState,
+    dispatch
+  }
+})(NewStack);
+

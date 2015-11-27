@@ -45,7 +45,7 @@ var Solution = React.createClass({
   render() {
     return (
       <tr>
-        <td>{this.props.name}</td>
+        <td><Link to={`/solutions/${this.props.id}`}>{this.props.name}</Link></td>
         <td>{this.props.description}</td>
       </tr>
     );

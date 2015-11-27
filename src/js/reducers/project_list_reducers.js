@@ -3,7 +3,6 @@ var initialState = {
 };
 
 export default function projectList(state=initialState, action) {
-  console.log(action);
   switch (action.type) {
     case "PROJECT_LIST_REQUEST":
       return Object.assign({

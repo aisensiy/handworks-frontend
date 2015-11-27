@@ -1,25 +1,26 @@
 import React from 'react';
 import { PropTypes } from 'react';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { SolutionAction, updateTab } from '../actions/actions';
+import { pushState } from 'redux-router';
 
 const Solution = React.createClass({
-  renderTab(tabState, tabName) {
-    if (tabState == this.props.tabState) {
-      return (<li role="presentation" className="active"
-                  onClick={
-                    (e) => {
-                      e.preventDefault();
-                      this.props.onTabChange(tabState);
-                    }
-                  }><a href="#">{tabName}</a></li>);
-    } else {
-      return (<li role="presentation"
-                  onClick={
-                    (e) => {
-                      e.preventDefault();
-                      this.props.onTabChange(tabState);
-                    }
-                  }><a href="#">{tabName}</a></li>);
+  componentWillMount() {
+    if (this.props.param_id) {
+      this.props.dispatch(SolutionAction(this.props.param_id));
     }
+  },
+
+  renderTab(tabState, tabName) {
+    var className = (tabState == this.props.tabState ? 'active' : '');
+    return (<li role="presentation" className={className}>
+              <a href="#" onClick={
+                  (e) => {
+                    console.log(this.props.tabState);
+                    this.props.dispatch(updateTab(tabState))
+                  }
+                }>{tabName}</a></li>);
   },
   renderDescrption() {
     return (
@@ -29,10 +30,11 @@ const Solution = React.createClass({
     );
   },
   renderStacks() {
+    console.log(this.props.solution.stacks);
     return (
         <div>
           <StackList stacks={this.props.solution.stacks}/>
-          <button className="btn btn-primary" onClick={(e) => this.props.goToCreateNewStack()}>Add New Stack</button>
+          <Link to={`/solutions/${this.props.solution.id}/stacks/new`} className="btn btn-primary">Add New Stack</Link>
         </div>
     );
   },
@@ -41,7 +43,7 @@ const Solution = React.createClass({
     var stacks = this.props.tabState == "STACKS" ? this.renderStacks() : "";
     return (
         <div>
-          <h2>{this.props.name}</h2>
+          <h2>{this.props.solution.name}</h2>
           <ul className="nav nav-tabs">
             {this.renderTab("DESCRIPTION", "Description")}
             {this.renderTab("STACKS", "Stacks")}
@@ -55,18 +57,10 @@ const Solution = React.createClass({
 
 Solution.propTypes = {
   tabState: PropTypes.oneOf([
-      "DESCRIPTION",
-      "STACKS"
+    "DESCRIPTION",
+    "STACKS"
   ]),
-  solution: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    stacks: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      backing_services: PropTypes.array.isRequired
-    }))
-  }),
-  onTabChange: PropTypes.func.isRequired
+  solution: PropTypes.object.isRequired
 };
 
 var StackList = React.createClass({
@@ -93,4 +87,19 @@ var StackList = React.createClass({
 });
 
 
-export default Solution;
+var stateToProps = (state) => {
+  return {
+    solution: state.solution.solution,
+    tabState: state.solution.tabState,
+    param_id: state.router.params.id
+  }
+};
+
+var dispatchToProps = (dispatch) => {
+  return {
+    dispatch: dispatch,
+    pushState: pushState
+  }
+};
+
+export default connect(stateToProps, dispatchToProps)(Solution);

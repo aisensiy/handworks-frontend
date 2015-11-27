@@ -3,18 +3,18 @@ import addItemsToForm from '../utils/post_as_form';
 
 const API_PREFIX = 'http://localhost:3000';
 
-function remotePostAction(name, url) {
+function remotePostAction(name, url, path='') {
   var requestAction = `${name.toUpperCase()}_REQUEST`;
   var successAction = `${name.toUpperCase()}_SUCCESS`;
   var failureAction = `${name.toUpperCase()}_FAILURE`;
 
-  var requestAction = () => {
+  var requestStart = () => {
     return {
       type: requestAction
     }
   };
 
-  var requestSuccess = (res) => {
+  var requestSuccess = (entity, res) => {
     return {
       type: successAction,
       payload: entity,
@@ -28,17 +28,18 @@ function remotePostAction(name, url) {
     }
   };
 
-  return (entity) => {
+  return (entity, path='') => {
     return (dispatch) => {
-      dispatch(requestAction());
+      dispatch(requestStart());
+      console.log('call ' + url + path);
       request
-          .post(url)
+          .post(url + path)
           .type('form')
           .send(entity)
           .end((err, res) => {
-            if (res.type == 2) {
+            if (res.statusType == 2 || res.statusType == 3 ) {
               console.log(res);
-              dispatch(requestSuccess(res));
+              dispatch(requestSuccess(entity, res));
             } else {
               dispatch(requestFailed());
             }
@@ -48,12 +49,12 @@ function remotePostAction(name, url) {
 }
 
 
-function remoteGetAction(name, url) {
+function remoteGetAction(name, url, path='') {
   var requestAction = `${name.toUpperCase()}_REQUEST`;
   var successAction = `${name.toUpperCase()}_SUCCESS`;
   var failureAction = `${name.toUpperCase()}_FAILURE`;
 
-  var requestAction = () => {
+  var requestStart = () => {
     return {
       type: requestAction
     }
@@ -72,13 +73,14 @@ function remoteGetAction(name, url) {
     }
   };
 
-  return () => {
+  return (path='') => {
     return (dispatch) => {
-      dispatch(requestAction());
+      dispatch(requestStart());
+      console.log('call ' + url + path)
       request
-          .get(url)
+          .get(url + path)
           .end((err, res) => {
-            if (res.statusType == 2) {
+            if (res.statusType == 2 || res.statusType == 3) {
               dispatch(requestSuccess(res.body));
             } else {
               dispatch(requestFailed());
@@ -88,10 +90,18 @@ function remoteGetAction(name, url) {
   }
 }
 
+export function updateTab(tab) {
+  return {
+    type: "TAB_" + tab
+  }
+}
+
 export var LoginAction = remotePostAction("LOGIN", `${API_PREFIX}/members/login`);
 
 export var NewSolutionAction = remotePostAction("NEW_SOLUTION", `${API_PREFIX}/solutions`);
+export var NewStackAction = remotePostAction("NEW_STACK", `${API_PREFIX}/solutions/`);
 
 export var SolutionListAction = remoteGetAction("SOLUTION_LIST", `${API_PREFIX}/solutions`);
 export var ProjectListAction = remoteGetAction("PROJECT_LIST", `${API_PREFIX}/projects`);
+export var SolutionAction = remoteGetAction("SOLUTION", `${API_PREFIX}/solutions/`);
 

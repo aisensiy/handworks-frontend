@@ -7,10 +7,10 @@ import App from './components/app';
 import { createHistory } from 'history';
 
 import SolutionList from './components/solution_list';
-import Solution from './components/solution';
+import Solution from './components/Solution';
 import Stack from './components/stack';
 import NewSolution from './components/new_solution';
-import NewStack from './components/new_stack';
+import NewStack from './components/NewStack';
 import NewExamProfile from './components/new_exam_profile';
 import ProjectList from './components/ProjectList';
 import Project from './components/project';
@@ -23,6 +23,8 @@ var routes = (
         <IndexRoute component={SolutionList}/>
         <Route path="solutions" component={SolutionList}/>
         <Route path="solutions/new" component={NewSolution}/>
+        <Route path="solutions/:id" component={Solution}/>
+        <Route path="solutions/:id/stacks/new" component={NewStack}/>
         <Route path="projects" component={ProjectList}/>
         <Route path="projects/new" component={NewProject}/>
       </Route>
