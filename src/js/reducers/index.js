@@ -6,6 +6,7 @@ import projectList from './project_list_reducers';
 import solution from './solution_reducers';
 import new_stack from './new_stack_reducers';
 import stack from './stack_reducers';
+import new_exam_profile from './new_exam_reducers';
 
 var rootReducer = combineReducers({
   router: routerStateReducer,
@@ -14,7 +15,8 @@ var rootReducer = combineReducers({
   project_list: projectList,
   solution: solution,
   new_stack: new_stack,
-  stack: stack
+  stack: stack,
+  new_exam_profile: new_exam_profile
 });
 
 export default rootReducer;

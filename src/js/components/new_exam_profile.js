@@ -1,13 +1,9 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { pushState } from 'redux-router';
+import { NewExamProfileAction } from '../actions/actions';
 
 const NewExamProfile = React.createClass({
-  getInitialState() {
-    return {
-      name: '',
-      description: ''
-    };
-  },
-
   onSubmit(e) {
     e.preventDefault();
     console.log({
@@ -15,6 +11,16 @@ const NewExamProfile = React.createClass({
       raml: this.refs.raml.value.trim(),
       archetype: this.refs.archetype.value.trim()
     });
+    var newExamProfile = {
+      name: this.refs.name.value.trim(),
+      raml: this.refs.raml.value.trim(),
+      archetype: this.refs.archetype.value.trim()
+    };
+    this.props.dispatch(NewExamProfileAction({
+      'exam_profile[name]': this.refs.name.value.trim(),
+      'exam_profile[raml]': this.refs.raml.value.trim(),
+      'exam_profile[archetype]': this.refs.archetype.value.trim()
+    }, `${this.props.solution_id}/stacks/${this.props.stack_id}/exam_profiles`))
   },
 
   render() {
@@ -53,4 +59,17 @@ const NewExamProfile = React.createClass({
   }
 });
 
-export default NewExamProfile;
+function mapStateToProps(state) {
+  return {
+    new_exam_profile: state['new_exam_profile'],
+    solution_id: state.router.params.solution_id,
+    stack_id: state.router.params.stack_id
+  };
+}
+
+export default connect(mapStateToProps, (dispatch) => {
+  return {
+    pushState,
+    dispatch
+  }
+})(NewExamProfile);

@@ -1,18 +1,18 @@
-export default function stack(state = {stack: {exams: [], backing_services: []}}, action) {
+export default function new_exam_profile(state = {}, action) {
   console.log(action);
   var newState = Object.assign({}, state);
 
   switch (action.type) {
-    case "STACK_REQUEST":
+    case "NEW_EXAM_PROFILE_REQUEST":
       return Object.assign(newState, {
         request_status: "LOADING"
       });
-    case "STACK_SUCCESS":
+    case "NEW_EXAM_PROFILE_SUCCESS":
       return Object.assign(newState, {
-        stack: action.payload,
+        solution: action.payload,
         request_status: "SUCCESS"
       });
-    case "STACK_FAILURE":
+    case "NEW_EXAM_PROFILE_FAILURE":
       return Object.assign(newState, {
         request_status: "FAILED"
       });

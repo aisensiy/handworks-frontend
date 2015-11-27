@@ -105,4 +105,5 @@ export var SolutionListAction = remoteGetAction("SOLUTION_LIST", `${API_PREFIX}/
 export var ProjectListAction = remoteGetAction("PROJECT_LIST", `${API_PREFIX}/projects`);
 export var SolutionAction = remoteGetAction("SOLUTION", `${API_PREFIX}/solutions/`);
 export var StackAction = remoteGetAction("STACK", `${API_PREFIX}/solutions/`);
+export var NewExamProfileAction = remotePostAction("NEW_EXAM_PROFILE", `${API_PREFIX}/solutions/`);
 

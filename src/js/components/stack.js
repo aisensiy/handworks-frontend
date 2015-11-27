@@ -12,6 +12,7 @@ const Stack = React.createClass({
     }
   },
   render() {
+    console.log(this.props.stack);
     return (
         <div>
           <h2>{this.props.stack.name}</h2>
@@ -75,6 +76,7 @@ var ExamProfileList = React.createClass({
 
 
 var stateToProps = (state) => {
+  console.log(state);
   return {
     stack: state.stack.stack,
     solution_id: state.router.params.solution_id,
