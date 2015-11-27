@@ -17,6 +17,14 @@ const NewStack = React.createClass({
     this.props.dispatch(NewStackAction(newStack, `${this.props.solution_id}/stacks`))
   },
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.new_stack.location != undefined){
+      var location = mapStateToProps(nextProps);
+      var relativeURI = location.new_stack.location.replace(/.+:\/\/[^\/]+(.+)$/, "$1");
+      this.props.dispatch(this.props.pushState(null, relativeURI));
+    }
+  },
+
   render() {
     return (
         <div>
@@ -60,4 +68,3 @@ export default connect(mapStateToProps, (dispatch) => {
     dispatch
   }
 })(NewStack);
-

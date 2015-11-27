@@ -68,7 +68,7 @@ var ExamProfileList = React.createClass({
             })}
             </tbody>
           </table>
-          <Link to={this.props.uri_prefix + 'new'}>New ExamProfile</Link>
+          <Link to={this.props.uri_prefix + 'new'}>New Exam Profile</Link>
         </div>
     );
   }

@@ -14,6 +14,14 @@ const NewSolution = React.createClass({
     this.props.dispatch(NewSolutionAction(newSolution));
   },
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.new_solution.location != undefined){
+      var location = mapStateToProps(nextProps);
+      var relativeURI = location.new_solution.location.replace(/.+:\/\/[^\/]+(.+)$/, "$1");
+      this.props.dispatch(this.props.pushState(null, relativeURI));
+    }
+  },
+
   render() {
     return (
       <div>

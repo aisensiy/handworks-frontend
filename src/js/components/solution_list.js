@@ -16,6 +16,9 @@ const SolutionList = React.createClass({
   render() {
     return (
         <div>
+        <div className="page-header">
+          <h1>All Solutions</h1>
+        </div>
         <table className="table">
           <thead>
           <tr>

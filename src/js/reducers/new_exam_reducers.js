@@ -9,8 +9,8 @@ export default function new_exam_profile(state = {}, action) {
       });
     case "NEW_EXAM_PROFILE_SUCCESS":
       return Object.assign(newState, {
-        solution: action.payload,
-        request_status: "SUCCESS"
+        request_status: "SUCCESS",
+        location: action.location
       });
     case "NEW_EXAM_PROFILE_FAILURE":
       return Object.assign(newState, {

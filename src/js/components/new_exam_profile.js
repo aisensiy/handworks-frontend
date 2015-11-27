@@ -22,7 +22,18 @@ const NewExamProfile = React.createClass({
       'exam_profile[archetype]': this.refs.archetype.value.trim()
     }, `${this.props.solution_id}/stacks/${this.props.stack_id}/exam_profiles`))
   },
+  componentWillReceiveProps(nextProps){
+    if(nextProps.new_exam_profile.location != undefined){
+      console.log("s");
+      console.log(nextProps);
+      console.log("e");
 
+      var location = mapStateToProps(nextProps);
+      var relativeURI = location.new_exam_profile.location.replace(/.+:\/\/[^\/]+(.+)$/, "$1");
+      console.log(relativeURI);
+      this.props.dispatch(this.props.pushState(null, relativeURI));
+    }
+  },
   render() {
     return (
         <div>
@@ -60,6 +71,7 @@ const NewExamProfile = React.createClass({
 });
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
     new_exam_profile: state['new_exam_profile'],
     solution_id: state.router.params.solution_id,
