@@ -9,7 +9,7 @@ import { createHistory } from 'history';
 
 import SolutionList from './components/solution_list';
 import Solution from './components/Solution';
-import Stack from './components/stack';
+import Stack from './components/Stack';
 import NewSolution from './components/new_solution';
 import NewStack from './components/NewStack';
 import NewExamProfile from './components/new_exam_profile';

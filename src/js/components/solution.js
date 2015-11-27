@@ -76,7 +76,7 @@ var StackList = React.createClass({
           <tbody>
           {this.props.stacks.map((stack, index) =>
               <tr key={index}>
-                <td>{stack.name}</td>
+                <td><Link to={stack.uri}>{stack.name}</Link></td>
                 <td>{stack.backing_services.join(", ")}</td>
               </tr>
           )}

@@ -4,13 +4,6 @@ import { pushState } from 'redux-router';
 import { NewStackAction } from '../actions/actions';
 
 const NewStack = React.createClass({
-  getInitialState() {
-    return {
-      name: '',
-      description: ''
-    };
-  },
-
   onSubmit(e) {
     e.preventDefault();
     console.log({

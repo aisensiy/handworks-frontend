@@ -1,7 +1,16 @@
 import React from 'react';
 import { PropTypes } from 'react';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { StackAction } from '../actions/actions';
+import { pushState } from 'redux-router';
 
 const Stack = React.createClass({
+  componentWillMount() {
+    if (this.props.stack_id && this.props.solution_id) {
+      this.props.dispatch(StackAction(`${this.props.solution_id}/stacks/${this.props.stack_id}`));
+    }
+  },
   render() {
     return (
         <div>
@@ -13,8 +22,7 @@ const Stack = React.createClass({
             })}
           </ul>
           <h3>Exam Profiles</h3>
-          <ExamProfileList exam_profiles={this.props.stack.exam_profiles}
-                           goToCreateExamProfile={this.props.goToCreateExamProfile} />
+          <ExamProfileList exam_profiles={this.props.stack.exams} uri_prefix={`/solutions/${this.props.solution_id}/stacks/${this.props.stack_id}/exam_profiles/`}/>
         </div>
     );
   }
@@ -24,16 +32,18 @@ Stack.propTypes = {
   stack: PropTypes.shape({
     name: PropTypes.string.isRequired,
     backing_services: React.PropTypes.array.isRequired,
-    exam_profiles: React.PropTypes.arrayOf(PropTypes.shape({
+    exams: React.PropTypes.arrayOf(PropTypes.shape({
       name: React.PropTypes.string.isRequired,
       raml: React.PropTypes.string.isRequired,
       archetype: React.PropTypes.string.isRequired
     }))
-  }),
-  goToCreateExamProfile: PropTypes.func.isRequired
+  })
 };
 
 var ExamProfileList = React.createClass({
+  goToCreateExamProfile() {
+
+  },
   render() {
     console.log(this.props.exam_profiles);
 
@@ -57,11 +67,26 @@ var ExamProfileList = React.createClass({
             })}
             </tbody>
           </table>
-          <button className="btn btn-primary" onClick={this.props.goToCreateExamProfile}>New ExamProfile</button>
+          <Link to={this.props.uri_prefix + 'new'}>New ExamProfile</Link>
         </div>
     );
   }
 });
 
 
-export default Stack;
+var stateToProps = (state) => {
+  return {
+    stack: state.stack.stack,
+    solution_id: state.router.params.solution_id,
+    stack_id: state.router.params.stack_id
+  }
+};
+
+var dispatchToProps = (dispatch) => {
+  return {
+    dispatch: dispatch,
+    pushState: pushState
+  }
+};
+
+export default connect(stateToProps, dispatchToProps)(Stack);
