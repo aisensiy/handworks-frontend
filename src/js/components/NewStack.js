@@ -14,9 +14,8 @@ const NewStack = React.createClass({
   },
 
   componentWillReceiveProps(nextProps){
-    var props = mapStateToProps(nextProps);
-    if(props.new_stack.location){
-      var relativeURI = props.new_stack.location.replace(/.+:\/\/[^\/]+(.+)$/, "$1");
+    if(nextProps.new_stack.location){
+      var relativeURI = nextProps.new_stack.location.replace(/.+:\/\/[^\/]+(.+)$/, "$1");
       this.props.dispatch(this.props.pushState(null, relativeURI));
     }
   },

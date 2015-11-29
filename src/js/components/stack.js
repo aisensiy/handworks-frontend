@@ -76,7 +76,6 @@ var ExamProfileList = React.createClass({
 
 
 var stateToProps = (state) => {
-  console.log(state);
   return {
     stack: state.stack.stack,
     solution_id: state.router.params.solution_id,

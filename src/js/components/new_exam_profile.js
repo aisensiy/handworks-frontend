@@ -23,9 +23,8 @@ const NewExamProfile = React.createClass({
     }, `${this.props.solution_id}/stacks/${this.props.stack_id}/exam_profiles`))
   },
   componentWillReceiveProps(nextProps){
-    if(nextProps.new_exam_profile.location != undefined){
-      var location = mapStateToProps(nextProps);
-      this.props.dispatch(this.props.pushState(null, `/solutions/${location.solution_id}/stacks/${location.stack_id}`));
+    if(nextProps.new_exam_profile.location){
+      this.props.dispatch(this.props.pushState(null, `/solutions/${nextProps.solution_id}/stacks/${nextProps.stack_id}`));
     }
   },
   render() {
@@ -65,11 +64,10 @@ const NewExamProfile = React.createClass({
 });
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     new_exam_profile: state['new_exam_profile'],
-    solution_id: state.router && state.router.params.solution_id || state.params.solution_id,
-    stack_id: state.router && state.router.params.stack_id || state.params.stack_id
+    solution_id: state.router.params.solution_id,
+    stack_id: state.router.params.stack_id
   };
 }
 
