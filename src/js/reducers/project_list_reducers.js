@@ -8,18 +8,18 @@ export default function projectList(state=initialState, action) {
       return Object.assign({
         projects: state.projects.slice(0)
       }, {
-        is_loading: true
+        request_status: "LOADING"
       });
     case "PROJECT_LIST_SUCCESS":
       return {
-        is_success: true,
+        request_status: "SUCCESS",
         projects: action.payload
       };
     case "PROJECT_LIST_FAILURE":
-      Object.assign({
+      return Object.assign({
         projects: state.projects.slice(0)
       }, {
-        is_failed: true
+        request_status: "FAILED"
       });
     default:
       return state;

@@ -31,7 +31,6 @@ const Stack = React.createClass({
 
 Stack.propTypes = {
   stack: PropTypes.shape({
-    name: PropTypes.string.isRequired,
     backing_services: React.PropTypes.array.isRequired,
     exams: React.PropTypes.arrayOf(PropTypes.shape({
       name: React.PropTypes.string.isRequired,
