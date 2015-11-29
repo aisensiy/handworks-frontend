@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import { reduxReactRouter, routerStateReducer } from 'redux-router'
-import createHistory from 'history/lib/createBrowserHistory'
+//import createHistory from 'history/lib/createBrowserHistory'
+import createHistory from 'history/lib/createHashHistory'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers/index'
