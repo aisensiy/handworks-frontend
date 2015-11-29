@@ -1,5 +1,4 @@
-export default function solution(state = {tabState: 'STACKS', solution: {stacks: []}}, action) {
-  console.log(action);
+export default function solution(state = {tabState: 'STACKS', solution: {stack: []}}, action) {
   var newState = Object.assign({}, state);
 
   switch (action.type) {

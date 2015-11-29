@@ -1,5 +1,4 @@
 export default function new_exam_profile(state = {}, action) {
-  console.log(action);
   var newState = Object.assign({}, state);
 
   switch (action.type) {

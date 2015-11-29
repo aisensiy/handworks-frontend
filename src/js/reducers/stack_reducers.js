@@ -1,5 +1,4 @@
 export default function stack(state = {stack: {exams: [], backing_services: []}}, action) {
-  console.log(action);
   var newState = Object.assign({}, state);
 
   switch (action.type) {
